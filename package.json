@@ -5,18 +5,23 @@
   "main": "index.js",
   "preferGlobal": true,
   "bin": {
-      "sjsp": "index.js"
+    "sjsp": "index.js"
   },
   "dependencies": {
-    "esprima": "^2.4.1"
+    "escodegen": "^1.6.1",
+    "esprima": "^2.4.1",
+    "estraverse": "^4.1.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-   "keywords": [
-       "profiler"
-   ],
+  "keywords": [
+    "profiler"
+  ],
   "author": "45deg",
-  "license": "MIT"
+  "license": "MIT",
+  "directories": {
+    "test": "test"
+  }
 }
