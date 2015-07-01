@@ -1,0 +1,22 @@
+{
+  "name": "node-sjsp",
+  "version": "1.0.0",
+  "description": "Simple JavaScript Profiler in Node.js",
+  "main": "index.js",
+  "preferGlobal": true,
+  "bin": {
+      "sjsp": "index.js"
+  },
+  "dependencies": {
+    "esprima": "^2.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+   "keywords": [
+       "profiler"
+   ],
+  "author": "45deg",
+  "license": "MIT"
+}
