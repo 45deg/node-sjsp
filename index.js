@@ -15,7 +15,7 @@ program
 if(!program.args.length) {
     program.help();
 } else {
-    var interval = program.interval || 10;
+    var interval = parseInt(program.interval) || 10;
     var files = program.args;
     var isStdout = program.print;
 
