@@ -24,6 +24,10 @@ See [original document][https://github.com/itchyny/sjsp]
 
 This profiling is available for browser only now.
 
+## Author
+
+45deg ([Twitter][https://twitter.com/___zoj])
+
 ## LICENSE
 
 MIT
