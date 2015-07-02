@@ -1,28 +1,31 @@
 {
-  "name": "node-sjsp",
-  "version": "1.0.0",
-  "description": "Simple JavaScript Profiler in Node.js",
-  "main": "index.js",
-  "preferGlobal": true,
-  "bin": {
-    "sjsp": "index.js"
-  },
-  "dependencies": {
-    "commander": "^2.8.1",
-    "escodegen": "^1.6.1",
-    "esprima": "^2.4.1",
-    "estraverse": "^4.1.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "profiler"
-  ],
-  "author": "45deg",
-  "license": "MIT",
-  "directories": {
-    "test": "test"
-  }
+    "name": "node-sjsp",
+    "version": "1.0.0",
+    "description": "Simple JavaScript Profiler in Node.js",
+    "preferGlobal": true,
+    "repository": {
+        "type": "git",
+        "url": "git://github.com:45deg/node-sjsp.git"
+    },
+    "bin": {
+        "sjsp": "index.js"
+    },
+    "dependencies": {
+        "commander": "^2.8.1",
+        "escodegen": "^1.6.1",
+        "esprima": "^2.4.1",
+        "estraverse": "^4.1.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "profiler"
+    ],
+    "author": "45deg",
+    "license": "MIT",
+    "directories": {
+        "test": "test"
+    }
 }
