@@ -20,6 +20,8 @@ if(!program.args.length) {
     var isStdout = program.print;
 
     files.forEach(function(fileName){
+        if(fileName.match(/sjsp.js$/)) return;
+
         var targetFileName = fileName.replace(/js$/, 'sjsp.js');
 
         fs.readFile(fileName, 'utf8', function(err, source){
