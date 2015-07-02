@@ -5,7 +5,7 @@
     "preferGlobal": true,
     "repository": {
         "type": "git",
-        "url": "git://github.com:45deg/node-sjsp.git"
+        "url": "git://github.com/45deg/node-sjsp.git"
     },
     "bin": {
         "sjsp": "index.js"
