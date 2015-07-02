@@ -33,8 +33,23 @@ describe("lib/injector", function(){
 
     before(function(){
         var offsetExpression = profiler(0).length;
+
     });
 
+    it("sjsp__start in FunctionDeclaration", function(){
+        var code = esprima.parse("function test(){}").body[0];
+        assertCallStart(code);
+    });
+
+    it("sjsp__end in FunctionDeclaration", function(){
+        var code = esprima.parse("function test(){}").body[0];
+        assertCallStart(code);
+    });
+
+    function assertCallStart(){
+    }
+    function assertCallEnd(){
+    }
 
     function getArgsOfCallExpr(node){
         return node.arguments.map(function(arg){
