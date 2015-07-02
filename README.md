@@ -7,7 +7,7 @@ This is a JavaScript profiler implemented in Node.js, inspired by [sjsp](https:/
 ## How to install
 
 ```
-npm install node-sjsp
+npm -g install node-sjsp
 ```
 
 ## Usage
