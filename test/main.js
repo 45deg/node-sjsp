@@ -26,3 +26,26 @@ describe("lib/profiler", function(){
     });
 });
 
+describe("lib/injector", function(){
+    // offset to injected profiling code
+    var offsetExpression;
+
+
+    before(function(){
+        var offsetExpression = profiler(0).length;
+    });
+
+
+    function getArgsOfCallExpr(node){
+        return node.arguments.map(function(arg){
+            return arg.value;
+        });
+    }
+    describe("lib/injector/test", function(){
+        it("getArgsOfCallExpr returns arguments", function(){
+            var callExpr = esprima.parse("foo(1, 2, '3')").body[0].expression;
+            assert.deepEqual(getArgsOfCallExpr(callExpr), [1, 2, '3']);
+        });
+    });
+});
+
