@@ -32,15 +32,15 @@ describe("lib/injector", function(){
     var dummyFileName = "example.js";
 
     before(function(){
-        var offsetExpression = profiler(0).length;
-        injector.inject();
+        offsetExpression = profiler(0).length;
     });
 
     it("sjsp__start in FunctionDeclaration", function(){
         var fname = "test";
-        var source = "function " + test + "(){}";
-        injector.inject(dummyFileName, source, 0);
-        assertCallStart(source, fname,
+        var source = "function " + fname + "(){}";
+        var injected = injector.inject(dummyFileName, source, 0);
+        var ast = skipProfiler(esprima.parse(injected).body)[0].body;
+        assertCallStart(ast, fname,
             [dummyFileName, 1, 0, fname, source]);
     });
 
@@ -48,6 +48,10 @@ describe("lib/injector", function(){
         var code = esprima.parse("function test(){}").body;
         assertCallEnd(code);
     });
+
+    function skipProfiler(ast){
+        return ast.slice(offsetExpression);
+    }
 
     function assertCallStart(ast, filename, args){
         var firstExpr = ast.body[0];
@@ -58,7 +62,7 @@ describe("lib/injector", function(){
         assert.equal(decl.id.name, "sjsp__state");
         // assert "var sjsp__state = sjsp__start(...);"
         assert.equal(decl.init.type, "CallExpression");
-        assert.equal(decl.init.callee, "sjsp__start");
+        assert.equal(decl.init.callee.name, "sjsp__start");
         // assert arguments
         assert.deepEqual(
             decl.init.arguments.map(function(a){ return a.value; }),
