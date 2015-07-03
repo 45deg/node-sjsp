@@ -88,6 +88,23 @@ describe("lib/injector", function(){
         assertCallEnd(ast);
     });
 
+    it("sjsp__start in MemberFunction", function(){
+        var fname = "a.b.c";
+        var source = fname + " = function(){};";
+        var injected = injector.inject(dummyFileName, source, 0);
+        var ast = esprima.parse(injected).body[offsetExpression].expression.right.body;
+        assertCallStart(ast, fname,
+            [dummyFileName, 1, 8, fname, source]);
+    });
+
+    it("sjsp__end in MemberFunction", function(){
+        var fname = "a.b.c";
+        var source = fname + " = function(){};";
+        var injected = injector.inject(dummyFileName, source, 0);
+        var ast = esprima.parse(injected).body[offsetExpression].expression.right.body;
+        assertCallEnd(ast);
+    });
+
     /*
      * assert start(); injection
      */
