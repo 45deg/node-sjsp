@@ -107,6 +107,29 @@ describe("lib/injector", function(){
         });
     });
 
+    describe("wrapping return statement", function(){
+        var source, origRetVal, injected, body, returnArg;
+
+        before(function(){
+            source = "(function(){ return 1+1; })";
+            origRetVal = esprima.parse(source).body.body[0].argument;
+
+            injected = injector.inject(dummyFileName, source, 0);
+            body = esprima.parse(injected).body[offsetExpression].expression.body.body;
+            returnArg = body[1].argument;
+        });
+
+        it("(...).call(this, arguments)", function(){
+            assert.equal(returnArg.type, "CallExpression");
+            var callee = returnArg.callee;
+            assert.equal(callee.property.name, "call");
+
+            var args = returnArg.arguments;
+            assert.equal(args[0].type, "ThisExpression");
+            assert.equal(args[1].name, "arguments");
+        });
+    });
+
     /*
      * assert start(); injection
      */
