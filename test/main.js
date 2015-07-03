@@ -52,10 +52,15 @@ describe("lib/injector", function(){
         assertCallEnd(ast);
     });
 
+    /*
+     * skip Profiling header code
+     */
     function skipProfiler(ast){
         return ast.slice(offsetExpression);
     }
-
+    /*
+     * assert start(); injection
+     */
     function assertCallStart(ast, filename, args){
         var firstExpr = ast.body[0];
         // assert "var ... = ...;"
@@ -72,6 +77,9 @@ describe("lib/injector", function(){
             args
         );
     }
+    /*
+     * assert end(); injection
+     */
     function assertCallEnd(ast){
         var lastExpr = ast.body[ast.body.length-1].expression;
         // assert "sjsp__end(...)"
@@ -81,17 +89,5 @@ describe("lib/injector", function(){
         assert.equal(lastExpr.arguments.length, 1);
         assert.equal(lastExpr.arguments[0].name, "sjsp__state");
     }
-
-    function getArgsOfCallExpr(node){
-        return node.arguments.map(function(arg){
-            return arg.value;
-        });
-    }
-    describe("lib/injector/test", function(){
-        it("getArgsOfCallExpr returns arguments", function(){
-            var callExpr = esprima.parse("foo(1, 2, '3')").body[0].expression;
-            assert.deepEqual(getArgsOfCallExpr(callExpr), [1, 2, '3']);
-        });
-    });
 });
 
