@@ -39,7 +39,7 @@ describe("lib/injector", function(){
         var fname = "test";
         var source = "function " + fname + "(){}";
         var injected = injector.inject(dummyFileName, source, 0);
-        var ast = skipProfiler(esprima.parse(injected).body)[0].body;
+        var ast = esprima.parse(injected).body[offsetExpression].body;
         assertCallStart(ast, fname,
             [dummyFileName, 1, 0, fname, source]);
     });
@@ -48,16 +48,10 @@ describe("lib/injector", function(){
         var fname = "test";
         var source = "function " + fname + "(){}";
         var injected = injector.inject(dummyFileName, source, 0);
-        var ast = skipProfiler(esprima.parse(injected).body)[0].body;
+        var ast = esprima.parse(injected).body[offsetExpression].body;
         assertCallEnd(ast);
     });
 
-    /*
-     * skip Profiling header code
-     */
-    function skipProfiler(ast){
-        return ast.slice(offsetExpression);
-    }
     /*
      * assert start(); injection
      */
