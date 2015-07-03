@@ -3,9 +3,10 @@
 var program = require('commander');
 var fs = require('fs');
 var injector = require('./lib/injector');
+var packageJson = require('./package.json');
 
 program
-  .version('0.0.1')
+  .version(packageJson.version)
   .usage('<filepath>')
   .option('-i, --interval <num>', "interval time of logging the result in seconds (default 10)")
   .option('-p, --print', "print out the compiled result to stdout")
