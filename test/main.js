@@ -69,6 +69,24 @@ describe("lib/injector", function(){
         assertCallEnd(ast);
     });
 
+    it("sjsp__start in VariableFunction", function(){
+        var fname = "test";
+        var source = "var " + fname + " = function(){};";
+        var injected = injector.inject(dummyFileName, source, 0);
+        var varDecl = esprima.parse(injected).body[offsetExpression].declarations;
+        var ast = varDecl[0].init.body;
+        assertCallStart(ast, fname,
+            [dummyFileName, 1, 11, fname, source]);
+    });
+
+    it("sjsp__end in VariableFunction", function(){
+        var fname = "test";
+        var source = "var " + fname + " = function(){};";
+        var injected = injector.inject(dummyFileName, source, 0);
+        var varDecl = esprima.parse(injected).body[offsetExpression].declarations;
+        var ast = varDecl[0].init.body;
+        assertCallEnd(ast);
+    });
 
     /*
      * assert start(); injection
