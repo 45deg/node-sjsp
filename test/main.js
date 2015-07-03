@@ -35,74 +35,76 @@ describe("lib/injector", function(){
         offsetExpression = profiler(0).length;
     });
 
-    it("sjsp__start in FunctionDeclaration", function(){
-        var fname = "test";
-        var source = "function " + fname + "(){}";
-        var injected = injector.inject(dummyFileName, source, 0);
-        var ast = esprima.parse(injected).body[offsetExpression].body;
-        assertCallStart(ast, fname,
-            [dummyFileName, 1, 0, fname, source]);
-    });
+    describe("start & end injection", function(){
+        it("sjsp__start in FunctionDeclaration", function(){
+            var fname = "test";
+            var source = "function " + fname + "(){}";
+            var injected = injector.inject(dummyFileName, source, 0);
+            var ast = esprima.parse(injected).body[offsetExpression].body;
+            assertCallStart(ast, fname,
+                [dummyFileName, 1, 0, fname, source]);
+        });
 
-    it("sjsp__end in FunctionDeclaration", function(){
-        var fname = "test";
-        var source = "function " + fname + "(){}";
-        var injected = injector.inject(dummyFileName, source, 0);
-        var ast = esprima.parse(injected).body[offsetExpression].body;
-        assertCallEnd(ast);
-    });
+        it("sjsp__end in FunctionDeclaration", function(){
+            var fname = "test";
+            var source = "function " + fname + "(){}";
+            var injected = injector.inject(dummyFileName, source, 0);
+            var ast = esprima.parse(injected).body[offsetExpression].body;
+            assertCallEnd(ast);
+        });
 
-    it("sjsp__start in AnonymousFunction", function(){
-        var fname = "anonymous";
-        var source = "(function(){})";
-        var injected = injector.inject(dummyFileName, source, 0);
-        var ast = esprima.parse(injected).body[offsetExpression].expression.body;
-        assertCallStart(ast, fname,
-            [dummyFileName, 1, 1, fname, source]);
-    });
+        it("sjsp__start in AnonymousFunction", function(){
+            var fname = "anonymous";
+            var source = "(function(){})";
+            var injected = injector.inject(dummyFileName, source, 0);
+            var ast = esprima.parse(injected).body[offsetExpression].expression.body;
+            assertCallStart(ast, fname,
+                [dummyFileName, 1, 1, fname, source]);
+        });
 
-    it("sjsp__end in AnonymousFunction", function(){
-        var fname = "anonymous";
-        var source = "(function(){})";
-        var injected = injector.inject(dummyFileName, source, 0);
-        var ast = esprima.parse(injected).body[offsetExpression].expression.body;
-        assertCallEnd(ast);
-    });
+        it("sjsp__end in AnonymousFunction", function(){
+            var fname = "anonymous";
+            var source = "(function(){})";
+            var injected = injector.inject(dummyFileName, source, 0);
+            var ast = esprima.parse(injected).body[offsetExpression].expression.body;
+            assertCallEnd(ast);
+        });
 
-    it("sjsp__start in VariableFunction", function(){
-        var fname = "test";
-        var source = "var " + fname + " = function(){};";
-        var injected = injector.inject(dummyFileName, source, 0);
-        var varDecl = esprima.parse(injected).body[offsetExpression].declarations;
-        var ast = varDecl[0].init.body;
-        assertCallStart(ast, fname,
-            [dummyFileName, 1, 11, fname, source]);
-    });
+        it("sjsp__start in VariableFunction", function(){
+            var fname = "test";
+            var source = "var " + fname + " = function(){};";
+            var injected = injector.inject(dummyFileName, source, 0);
+            var varDecl = esprima.parse(injected).body[offsetExpression].declarations;
+            var ast = varDecl[0].init.body;
+            assertCallStart(ast, fname,
+                [dummyFileName, 1, 11, fname, source]);
+        });
 
-    it("sjsp__end in VariableFunction", function(){
-        var fname = "test";
-        var source = "var " + fname + " = function(){};";
-        var injected = injector.inject(dummyFileName, source, 0);
-        var varDecl = esprima.parse(injected).body[offsetExpression].declarations;
-        var ast = varDecl[0].init.body;
-        assertCallEnd(ast);
-    });
+        it("sjsp__end in VariableFunction", function(){
+            var fname = "test";
+            var source = "var " + fname + " = function(){};";
+            var injected = injector.inject(dummyFileName, source, 0);
+            var varDecl = esprima.parse(injected).body[offsetExpression].declarations;
+            var ast = varDecl[0].init.body;
+            assertCallEnd(ast);
+        });
 
-    it("sjsp__start in MemberFunction", function(){
-        var fname = "a.b.c";
-        var source = fname + " = function(){};";
-        var injected = injector.inject(dummyFileName, source, 0);
-        var ast = esprima.parse(injected).body[offsetExpression].expression.right.body;
-        assertCallStart(ast, fname,
-            [dummyFileName, 1, 8, fname, source]);
-    });
+        it("sjsp__start in MemberFunction", function(){
+            var fname = "a.b.c";
+            var source = fname + " = function(){};";
+            var injected = injector.inject(dummyFileName, source, 0);
+            var ast = esprima.parse(injected).body[offsetExpression].expression.right.body;
+            assertCallStart(ast, fname,
+                [dummyFileName, 1, 8, fname, source]);
+        });
 
-    it("sjsp__end in MemberFunction", function(){
-        var fname = "a.b.c";
-        var source = fname + " = function(){};";
-        var injected = injector.inject(dummyFileName, source, 0);
-        var ast = esprima.parse(injected).body[offsetExpression].expression.right.body;
-        assertCallEnd(ast);
+        it("sjsp__end in MemberFunction", function(){
+            var fname = "a.b.c";
+            var source = fname + " = function(){};";
+            var injected = injector.inject(dummyFileName, source, 0);
+            var ast = esprima.parse(injected).body[offsetExpression].expression.right.body;
+            assertCallEnd(ast);
+        });
     });
 
     /*
