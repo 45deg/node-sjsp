@@ -154,6 +154,18 @@ describe("lib/injector", function(){
             assert.equal(tmpVarName, retVarName);
             assert.deepEqual(tmpVarExpr, origRetVal);
         });
+
+        it("call sjsp__end", function(){
+            var func = callee.object;
+            var body = func.body.body;
+            var expr = body[1].expression;
+            // assert "sjsp__end(...)"
+            assert.equal(expr.type, "CallExpression");
+            assert.equal(expr.callee.name, "sjsp__end");
+            // assert the argument is "sjsp__state"
+            assert.equal(expr.arguments.length, 1);
+            assert.equal(expr.arguments[0].name, "sjsp__state");
+        });
     });
 
     /*
