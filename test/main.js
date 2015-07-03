@@ -45,8 +45,11 @@ describe("lib/injector", function(){
     });
 
     it("sjsp__end in FunctionDeclaration", function(){
-        var code = esprima.parse("function test(){}").body;
-        assertCallEnd(code);
+        var fname = "test";
+        var source = "function " + fname + "(){}";
+        var injected = injector.inject(dummyFileName, source, 0);
+        var ast = skipProfiler(esprima.parse(injected).body)[0].body;
+        assertCallEnd(ast);
     });
 
     function skipProfiler(ast){
@@ -69,7 +72,14 @@ describe("lib/injector", function(){
             args
         );
     }
-    function assertCallEnd(){
+    function assertCallEnd(ast){
+        var lastExpr = ast.body[ast.body.length-1].expression;
+        // assert "sjsp__end(...)"
+        assert.equal(lastExpr.type, "CallExpression");
+        assert.equal(lastExpr.callee.name, "sjsp__end");
+        // assert the argument is "sjsp__state"
+        assert.equal(lastExpr.arguments.length, 1);
+        assert.equal(lastExpr.arguments[0].name, "sjsp__state");
     }
 
     function getArgsOfCallExpr(node){
