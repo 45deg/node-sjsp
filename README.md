@@ -1,5 +1,7 @@
 # node-sjsp  - Simple JavaScript Profiler
 
+[![Build Status](https://secure.travis-ci.org/45deg/node-sjsp.png?branch=master)](http://travis-ci.org/45deg/node-sjsp)
+
 ## What is it
 
 This is a JavaScript profiler implemented in Node.js, inspired by [sjsp](https://github.com/itchyny/sjsp), which is implemented in Haskell.
