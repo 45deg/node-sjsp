@@ -134,18 +134,12 @@ describe("lib/injector", function(){
             assert.equal(func.params[0].name, "arguments");
         });
 
-        it("node type of statements", function(){
-            var func = callee.object;
-            var body = func.body.body;
-            // check node types
-            assert.equal(body[0].type, "VariableDeclaration");
-            assert.equal(body[1].type, "ExpressionStatement");
-            assert.equal(body[1].expression.type, "CallExpression");
-            assert.equal(body[2].type, "ReturnStatement");
-        });
-
         it("return original expression", function(){
             var body = callee.object.body.body;
+
+            assert.equal(body[1].type, "ExpressionStatement");
+            assert.equal(body[2].type, "ReturnStatement");
+
             var varDecl = body[0].declarations[0];
             var tmpVarName = varDecl.id.name;
             var tmpVarExpr = varDecl.init;
