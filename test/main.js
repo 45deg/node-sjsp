@@ -52,6 +52,24 @@ describe("lib/injector", function(){
         assertCallEnd(ast);
     });
 
+    it("sjsp__start in AnonymousFunction", function(){
+        var fname = "anonymous";
+        var source = "(function(){})";
+        var injected = injector.inject(dummyFileName, source, 0);
+        var ast = esprima.parse(injected).body[offsetExpression].expression.body;
+        assertCallStart(ast, fname,
+            [dummyFileName, 1, 1, fname, source]);
+    });
+
+    it("sjsp__end in AnonymousFunction", function(){
+        var fname = "anonymous";
+        var source = "(function(){})";
+        var injected = injector.inject(dummyFileName, source, 0);
+        var ast = esprima.parse(injected).body[offsetExpression].expression.body;
+        assertCallEnd(ast);
+    });
+
+
     /*
      * assert start(); injection
      */
