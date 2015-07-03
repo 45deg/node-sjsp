@@ -3,7 +3,7 @@ var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var profiler = require('../lib/profiler');
-var injection = require('../lib/injector');
+var injector = require('../lib/injector');
 
 describe("lib/profiler", function(){
     it("setInterval argument should be SECONDS * 1000", function(){
@@ -29,24 +29,41 @@ describe("lib/profiler", function(){
 describe("lib/injector", function(){
     // offset to injected profiling code
     var offsetExpression;
-
+    var dummyFileName = "example.js";
 
     before(function(){
         var offsetExpression = profiler(0).length;
-
+        injector.inject();
     });
 
     it("sjsp__start in FunctionDeclaration", function(){
-        var code = esprima.parse("function test(){}").body[0];
-        assertCallStart(code);
+        var fname = "test";
+        var source = "function " + test + "(){}";
+        injector.inject(dummyFileName, source, 0);
+        assertCallStart(source, fname,
+            [dummyFileName, 1, 0, fname, source]);
     });
 
     it("sjsp__end in FunctionDeclaration", function(){
-        var code = esprima.parse("function test(){}").body[0];
-        assertCallStart(code);
+        var code = esprima.parse("function test(){}").body;
+        assertCallEnd(code);
     });
 
-    function assertCallStart(){
+    function assertCallStart(ast, filename, args){
+        var firstExpr = ast.body[0];
+        // assert "var ... = ...;"
+        assert.equal(firstExpr.type, "VariableDeclaration");
+        var decl = firstExpr.declarations[0];
+        // assert "var sjsp__state = ..."
+        assert.equal(decl.id.name, "sjsp__state");
+        // assert "var sjsp__state = sjsp__start(...);"
+        assert.equal(decl.init.type, "CallExpression");
+        assert.equal(decl.init.callee, "sjsp__start");
+        // assert arguments
+        assert.deepEqual(
+            decl.init.arguments.map(function(a){ return a.value; }),
+            args
+        );
     }
     function assertCallEnd(){
     }
