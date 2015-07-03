@@ -108,25 +108,40 @@ describe("lib/injector", function(){
     });
 
     describe("wrapping return statement", function(){
-        var source, origRetVal, injected, body, returnArg;
+        var source, origRetVal, injected, body, returnArg, callee;
 
         before(function(){
             source = "(function(){ return 1+1; })";
-            origRetVal = esprima.parse(source).body.body[0].argument;
+            origRetVal = esprima.parse(source).body[0].expression.body.body[0].argument;
 
             injected = injector.inject(dummyFileName, source, 0);
             body = esprima.parse(injected).body[offsetExpression].expression.body.body;
             returnArg = body[1].argument;
+            callee = returnArg.callee;
         });
 
         it("(...).call(this, arguments)", function(){
             assert.equal(returnArg.type, "CallExpression");
-            var callee = returnArg.callee;
             assert.equal(callee.property.name, "call");
 
             var args = returnArg.arguments;
             assert.equal(args[0].type, "ThisExpression");
             assert.equal(args[1].name, "arguments");
+        });
+
+        it("return (function(arguments){ ...", function(){
+            var func = callee.object;
+            assert.equal(func.params[0].name, "arguments");
+        });
+
+        it("node type of statements", function(){
+            var func = callee.object;
+            var body = func.body.body;
+            // check node types
+            assert.equal(body[0].type, "VariableDeclaration");
+            assert.equal(body[1].type, "ExpressionStatement");
+            assert.equal(body[1].expression.type, "CallExpression");
+            assert.equal(body[2].type, "ReturnStatement");
         });
     });
 
