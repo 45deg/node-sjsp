@@ -143,6 +143,17 @@ describe("lib/injector", function(){
             assert.equal(body[1].expression.type, "CallExpression");
             assert.equal(body[2].type, "ReturnStatement");
         });
+
+        it("return original expression", function(){
+            var body = callee.object.body.body;
+            var varDecl = body[0].declarations[0];
+            var tmpVarName = varDecl.id.name;
+            var tmpVarExpr = varDecl.init;
+            var retVarName = body[2].argument.name;
+
+            assert.equal(tmpVarName, retVarName);
+            assert.deepEqual(tmpVarExpr, origRetVal);
+        });
     });
 
     /*
