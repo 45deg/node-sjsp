@@ -30,18 +30,18 @@ Next, rewrite your HTML code using `something.js` like below.
 Open the page with your browser and you can see profiles in the JavaScript console every 10 seconds. (you can change this interval by -i option)
 ```
 ========== SORT BY TIME ==========
-time:    0.60sec   count:    1777    something.js          test1   (line:   7, col:  0)   function test1(){
-time:    0.60sec   count:    1701    something.js          test0   (line:   1, col:  0)   function test0(){
-time:    0.58sec   count:    1601    something.js          test4   (line:  25, col:  0)   function test4(){
-time:    0.57sec   count:    1703    something.js          test2   (line:  13, col:  0)   function test2(){
-time:    0.54sec   count:    1632    something.js          test3   (line:  19, col:  0)   function test3(){
-time:    0.53sec   count:    1586    something.js          test5   (line:  31, col:  0)   function test5(){
+time:    0.60sec   count:    1777    something.js          test1   (line:   7, col: 17)   function test1(){
+time:    0.60sec   count:    1701    something.js          test0   (line:   1, col: 17)   function test0(){
+time:    0.58sec   count:    1601    something.js          test4   (line:  25, col: 17)   function test4(){
+time:    0.57sec   count:    1703    something.js          test2   (line:  13, col: 17)   function test2(){
+time:    0.54sec   count:    1632    something.js          test3   (line:  19, col: 17)   function test3(){
+time:    0.53sec   count:    1586    something.js          test5   (line:  31, col: 17)   function test5(){
 ========== SORT BY COUNT ==========
-time:    0.60sec   count:    1777    something.js          test1   (line:   7, col:  0)   function test1(){
-time:    0.57sec   count:    1703    something.js          test2   (line:  13, col:  0)   function test2(){
-time:    0.60sec   count:    1701    something.js          test0   (line:   1, col:  0)   function test0(){
-time:    0.54sec   count:    1632    something.js          test3   (line:  19, col:  0)   function test3(){
-time:    0.58sec   count:    1601    something.js          test4   (line:  25, col:  0)   function test4(){
+time:    0.60sec   count:    1777    something.js          test1   (line:   7, col: 17)   function test1(){
+time:    0.57sec   count:    1703    something.js          test2   (line:  13, col: 17)   function test2(){
+time:    0.60sec   count:    1701    something.js          test0   (line:   1, col: 17)   function test0(){
+time:    0.54sec   count:    1632    something.js          test3   (line:  19, col: 17)   function test3(){
+time:    0.58sec   count:    1601    something.js          test4   (line:  25, col: 17)   function test4(){
 ```
 
 For details, see [original document](https://github.com/itchyny/sjsp#usage)
