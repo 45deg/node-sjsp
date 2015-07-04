@@ -42,7 +42,7 @@ describe("lib/injector", function(){
             var injected = injector.inject(dummyFileName, source, 0);
             var ast = esprima.parse(injected).body[offsetExpression].body;
             assertCallStart(ast, fname,
-                [dummyFileName, 1, 0, fname, source]);
+                [dummyFileName, 1, 16, fname, source]);
         });
 
         it("sjsp__end in FunctionDeclaration", function(){
@@ -59,7 +59,7 @@ describe("lib/injector", function(){
             var injected = injector.inject(dummyFileName, source, 0);
             var ast = esprima.parse(injected).body[offsetExpression].expression.body;
             assertCallStart(ast, fname,
-                [dummyFileName, 1, 1, fname, source]);
+                [dummyFileName, 1, 12, fname, source]);
         });
 
         it("sjsp__end in AnonymousFunction", function(){
@@ -77,7 +77,7 @@ describe("lib/injector", function(){
             var varDecl = esprima.parse(injected).body[offsetExpression].declarations;
             var ast = varDecl[0].init.body;
             assertCallStart(ast, fname,
-                [dummyFileName, 1, 11, fname, source]);
+                [dummyFileName, 1, 22, fname, source]);
         });
 
         it("sjsp__end in VariableFunction", function(){
@@ -95,7 +95,7 @@ describe("lib/injector", function(){
             var injected = injector.inject(dummyFileName, source, 0);
             var ast = esprima.parse(injected).body[offsetExpression].expression.right.body;
             assertCallStart(ast, fname,
-                [dummyFileName, 1, 8, fname, source]);
+                [dummyFileName, 1, 19, fname, source]);
         });
 
         it("sjsp__end in MemberFunction", function(){
