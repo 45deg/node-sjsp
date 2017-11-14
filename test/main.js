@@ -4,6 +4,29 @@ var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var profiler = require('../lib/profiler');
 var injector = require('../lib/injector');
+var fs = require("fs");
+var path = require("path");
+
+describe("fixture tests", function() {
+    const fixturesDir = path.join(__dirname, "fixtures");
+    const TEST_INTERVAL = 1;
+    const profileBody = profiler(TEST_INTERVAL);
+    const profileCode = escodegen.generate({
+        type: "Program",
+        body: profileBody
+    });
+    const dummyFileName = "example.js";
+    fs.readdirSync(fixturesDir).map(caseName => {
+        it(`should inject profiler for ${caseName.replace(/-/g, " ")}`, () => {
+            const fixtureDir = path.join(fixturesDir, caseName);
+            const actualPath = path.join(fixtureDir, "input.js");
+            const actual = injector.inject(dummyFileName, fs.readFileSync(actualPath, "utf-8"), TEST_INTERVAL);
+            const expected = fs.readFileSync(path.join(fixtureDir, "output.js"), "utf-8");
+            const profileWithExpected = profileCode + "\n"+ expected;
+            assert.deepStrictEqual(actual.trim(), profileWithExpected.trim(), actual);
+        });
+    });
+});
 
 describe("lib/profiler", function(){
     it("setInterval argument should be SECONDS * 1000", function(){

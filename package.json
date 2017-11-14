@@ -7,18 +7,19 @@
     "type": "git",
     "url": "git://github.com/45deg/node-sjsp.git"
   },
+  "main": "lib/injector.js",
   "bin": {
     "sjsp": "index.js"
   },
   "dependencies": {
     "commander": "^2.8.1",
     "escodegen": "^1.6.1",
-    "esprima": "^2.4.1",
+    "esprima": "^4.0.0",
     "estraverse": "^4.1.0"
   },
   "devDependencies": {
     "assert": "^1.3.0",
-    "mocha": "^2.2.5"
+    "mocha": "^4.0.1"
   },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha test/main.js"
